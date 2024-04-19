@@ -1,11 +1,12 @@
 Package: atlas.qua
 Type: Package
-Title: 
-Version: 0.1.0
+Title: Calculating Skill Set Overqualification and Underqualification
+Version: 0.2.0
 Author: Cao Bittencourt
 Maintainer: Cao Bittencourt <caobittencourt@gmail.com>
-Description: .
-Depends: 
+Description: A package to assess whether numeric career profiles are overqualified, underqualified or sufficiently qualified for a job.
+Depends: atlas.aeq
+Remotes: github::caobittencourt/atlas.aeq
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
