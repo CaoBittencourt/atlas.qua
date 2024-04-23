@@ -1,11 +1,12 @@
 # [FUNCTIONS] --------------------------------------------------------------
 # - sufficient qualification function (sqa) ---------------------------------
-sqa <- function(a_k, a_q, aeq_q){return(1 - uqa(a_k, a_q, aeq_q))}
+sqa <- function(a_k, a_q, aeq_q, lb = 0){return(1 - uqa(a_k, a_q, aeq_q, lb))}
 
 # - vectorized sufficient qualification function ---------------------------------------------------------
 fun_qua_sqa <- function(
     df_query_rows,
     df_data_rows,
+    dbl_scale_lb = 0,
     chr_id_col = NULL
 ){
 

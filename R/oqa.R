@@ -1,6 +1,6 @@
 # [FUNCTIONS] --------------------------------------------------------------
-# - underqualification function (uqa) -------------------------------------------
-uqa <- function(a_k, a_q, aeq_q){
+# - overqualification function (oqa) -------------------------------------------
+oqa <- function(a_k, a_q, aeq_q, ub = 100){
 
   # arguments validation
   stopifnot(
@@ -26,20 +26,32 @@ uqa <- function(a_k, a_q, aeq_q){
       )
   )
 
+  stopifnot(
+    "'ub' must be numeric." =
+      is.numeric(ub)
+  )
+
   # output
   return(sqrt(
-    sum(aeq_q * fun_qua_gap(a_q, a_k) ^ 2) /
-      sum(aeq_q * a_q ^ 2)
+    sum(aeq_q * fun_qua_gap(a_k, a_q) ^ 2) /
+      sum(aeq_q * fun_qua_gap(ub[[1]], a_q) ^ 2)
   ))
 
 }
 
-# - vectorized underqualification function ---------------------------------------------------------
-fun_qua_uqa <- function(
+# - vectorized overqualification function ---------------------------------------------------------
+fun_qua_oqa <- function(
     df_query_rows,
     df_data_rows,
+    dbl_scale_ub = 100,
     chr_id_col = NULL
 ){
+
+  # arguments validation
+  stopifnot(
+    "'dbl_scale_ub' must be numeric." =
+      is.numeric(dbl_scale_ub)
+  )
 
   # call data prep function
   call_list <- match.call()
@@ -48,25 +60,28 @@ fun_qua_uqa <- function(
 
   list_prep <- eval.parent(call_list)
 
-  # calculate underqualification
+  # calculate overqualification
   map(
     list_prep$a_k
     , ~ sqrt(
       rowSums(
         list_prep$aeq_q *
           fun_qua_gap(
-            list_prep$a_q
-            , .x
+            .x
+            , list_prep$a_q
           ) ^ 2
       ) / rowSums(
         list_prep$aeq_q *
-          list_prep$a_q ^ 2
+          fun_qua_gap(
+            dbl_scale_ub[[1]]
+            , list_prep$a_q
+          ) ^ 2
       )
     )
-  ) -> list_uqa
+  ) -> list_oqa
 
   # ouput
-  return(list_uqa)
+  return(list_oqa)
 
 }
 

@@ -3,7 +3,8 @@
 fun_qua_prep <- function(
     df_query_rows,
     df_data_rows,
-    chr_id_col = NULL
+    chr_id_col = NULL,
+    ...
 ){
 
   # arguments validation
