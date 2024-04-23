@@ -1,7 +1,7 @@
 Package: atlas.qua
 Type: Package
 Title: Calculating Skill Set Overqualification and Underqualification
-Version: 1.1.0
+Version: 1.1.1
 Author: Cao Bittencourt
 Maintainer: Cao Bittencourt <caobittencourt@gmail.com>
 Description: A package to assess whether numeric career profiles are overqualified, underqualified or sufficiently qualified for a job.
