@@ -1,6 +1,6 @@
 # [FUNCTIONS] -------------------------------------------------------------
 # - rowmap function -------------------------------------------------------
-rowmap <- function(df_data, fun_function){
+rowmap <- function(df_data, fun_function, ...){
 
   # arguments validation
   stopifnot(
@@ -17,7 +17,7 @@ rowmap <- function(df_data, fun_function){
   df_data %>%
     t() %>%
     as_tibble() %>%
-    map(fun_function) %>%
+    map(fun_function, ...) %>%
     bind_rows() %>%
     t() %>%
     as_tibble() %>%

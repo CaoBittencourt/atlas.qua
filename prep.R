@@ -65,9 +65,16 @@ fun_qua_prep <- function(
     df_query_rows
   )] -> df_data_rows
 
-  df_query_rows[rep(
-    1, nrow(df_data_rows)
-  ), ] -> df_query_rows
+  df_query_rows %>%
+    split(chr_id_query) ->
+    list_query
+
+  map(
+    list_query
+    , ~ .x[rep(
+      1, nrow(df_data_rows))
+      , ]
+  ) -> list_query
 
   # rowmap attribute equivalence function
   rowmap(
@@ -77,9 +84,9 @@ fun_qua_prep <- function(
 
   # output
   return(list(
-    query = df_query_rows,
-    data = df_data_rows,
-    aeq = df_aeq
+    a_k = list_query,
+    a_q = df_data_rows,
+    aeq_q = df_aeq
   ))
 
 }

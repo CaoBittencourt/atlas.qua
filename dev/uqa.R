@@ -1,5 +1,40 @@
 # [FUNCTIONS] --------------------------------------------------------------
-# - underqualification function (uqa) ---------------------------------------------------------
+# - underqualification function (uqa) -------------------------------------------
+uqa <- function(a_k, a_q, aeq_q){
+
+  # arguments validation
+  stopifnot(
+    "'a_k' must be a numeric vector." =
+      is.numeric(a_k)
+  )
+
+  stopifnot(
+    "'a_q' must be a numeric vector the same length as 'a_k'." =
+      all(
+        is.numeric(a_q)
+        , length(a_q) ==
+          length(a_k)
+      )
+  )
+
+  stopifnot(
+    "'aeq_q' must be a numeric vector the same length as 'a_q'." =
+      all(
+        is.numeric(aeq_q)
+        , length(aeq_q) ==
+          length(a_q)
+      )
+  )
+
+  # output
+  return(sqrt(
+    sum(aeq_q * fun_qua_gap(a_q, a_k) ^ 2) /
+      sum(aeq_q * a_q ^ 2)
+  ))
+
+}
+
+# - vectorized underqualification function ---------------------------------------------------------
 fun_qua_uqa <- function(
     df_query_rows,
     df_data_rows,
@@ -13,13 +48,25 @@ fun_qua_uqa <- function(
 
   list_prep <- eval.parent(call_list)
 
-  rm(call_list)
-
-  return(list_prep)
-
   # calculate underqualification
+  map(
+    list_prep$a_k
+    , ~ sqrt(
+      rowSums(
+        list_prep$aeq_q *
+          fun_qua_gap(
+            list_prep$a_q
+            , .x
+          ) ^ 2
+      ) / rowSums(
+        list_prep$aeq_q *
+          list_prep$a_q ^ 2
+      )
+    )
+  ) -> list_uqa
 
   # ouput
   return(list_uqa)
 
 }
+
