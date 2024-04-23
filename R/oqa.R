@@ -80,6 +80,14 @@ fun_qua_oqa <- function(
     )
   ) -> list_oqa
 
+  # set names
+  map(
+    list_oqa
+    , set_names
+    , list_prep$
+      names
+  ) -> list_oqa
+
   # ouput
   return(list_oqa)
 

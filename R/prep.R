@@ -87,7 +87,9 @@ fun_qua_prep <- function(
   return(list(
     a_k = list_query,
     a_q = df_data_rows,
-    aeq_q = df_aeq
+    aeq_q = df_aeq,
+    names = chr_id_data
   ))
 
 }
+

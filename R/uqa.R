@@ -80,6 +80,14 @@ fun_qua_uqa <- function(
     )
   ) -> list_uqa
 
+  # set names
+  map(
+    list_uqa
+    , set_names
+    , list_prep$
+      names
+  ) -> list_uqa
+
   # ouput
   return(list_uqa)
 
